@@ -69,3 +69,6 @@ mix.babel('node_modules/izitoast/dist/js/iziToast.min.js',
 
 
  mix.js('resources/assets/js/employees/employees.js', 'public/assets/js/employees/employees.js').version();
+
+
+ mix.js('resources/assets/js/spareparts/spareparts.js', 'public/assets/js/spareparts/spareparts.js').version();

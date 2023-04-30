@@ -2,31 +2,66 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Eloquent as Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+/**
+ * Class Appointment
+ * @package App\Models
+ * @version April 30, 2023, 6:07 pm UTC
+ *
+ * @property integer $customer_id
+ * @property integer $vehicle_id
+ * @property string|\Carbon\Carbon $appointment_date
+ * @property string $status
+ */
 class Appointment extends Model
 {
+
     use HasFactory;
 
-    protected $table = 'appointments';
+    public $table = 'appointments';
+    
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
 
-    protected $fillable = [
-        'customer_id', 'vehicle_id', 'employee_id', 'appointment_date', 'appointment_time', 'status'
+
+
+
+    public $fillable = [
+        'customer_id',
+        'vehicle_id',
+        'appointment_date',
+        'status'
     ];
 
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'customer_id' => 'integer',
+        'vehicle_id' => 'integer',
+        'appointment_date' => 'datetime',
+        'status' => 'string'
+    ];
 
-    public function vehicle()
-    {
-        return $this->belongsTo(Vehicle::class);
-    }
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        'customer_id' => 'required',
+        'vehicle_id' => 'required',
+        'appointment_date' => 'required',
+        'status' => 'required|string|max:192',
+        'created_at' => 'nullable',
+        'updated_at' => 'nullable'
+    ];
 
-    public function employee()
-    {
-        return $this->belongsTo(Employee::class);
-    }
+    
 }

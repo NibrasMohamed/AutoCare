@@ -63,5 +63,13 @@ class Repairs extends Model
         'updated_at' => 'nullable'
     ];
 
-    
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
+
+    public function repairDetail()
+    {
+        return $this->belongsTo(RepairDetail::class);
+    }
 }
