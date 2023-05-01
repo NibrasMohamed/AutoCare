@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Repairs

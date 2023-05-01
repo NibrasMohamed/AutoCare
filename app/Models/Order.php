@@ -58,7 +58,7 @@ class Order extends Model
         'customer_id' => 'required',
         'spare_part_id' => 'required',
         'quantity' => 'required|integer',
-        'status' => 'required|string|max:192',
+        'status' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

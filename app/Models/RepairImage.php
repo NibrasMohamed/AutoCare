@@ -12,7 +12,7 @@ class RepairImage extends Model
     protected $table = 'repair_images';
    
     protected $fillable = [
-        'repair_id', 'image_url', 'description'
+        'repair_id', 'path'
     ];
 
     public function repair()

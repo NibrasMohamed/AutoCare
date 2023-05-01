@@ -6,6 +6,7 @@ use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Repositories\OrderRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\SparePart;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -42,7 +43,9 @@ class OrderController extends AppBaseController
      */
     public function create()
     {
-        return view('orders.create');
+        $options = SparePart::pluck('name', 'id');
+        return view('orders.create', compact('options'));
+        
     }
 
     /**
@@ -55,7 +58,7 @@ class OrderController extends AppBaseController
     public function store(CreateOrderRequest $request)
     {
         $input = $request->all();
-
+        $input['status'] = 'ordered';
         $order = $this->orderRepository->create($input);
 
         Flash::success('Order saved successfully.');

@@ -6,6 +6,14 @@ use App\Http\Requests\CreateAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Repositories\AppointmentRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Appointment;
+use App\Models\Customer;
+use App\Models\Repair;
+use App\Models\RepairDetail;
+use App\Models\RepairImage;
+use App\Models\Repairs;
+use App\Models\RepairType;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -152,5 +160,57 @@ class AppointmentController extends AppBaseController
         Flash::success('Appointment deleted successfully.');
 
         return redirect(route('appointments.index'));
+    }
+
+    public function makeAppointment(Request $request)
+    {
+
+        // dd($request->toArray());
+        $appointment = Appointment::create([
+            'customer_id' => $request->customer_id,
+            'vehicle_id' => $request->vehicle_id,
+            'appointment_date' => $request->appointment_date,
+            'status' => $request->status,
+        ]);
+
+        $repair = Repairs::create([
+            'appointment_id' => $appointment->id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'cost' => $request->cost,
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('images/repair_images', $filename);
+        } else {
+            $url = null;
+        }
+        
+        $repair_image = RepairImage::create([
+            'repair_id' => $repair->id, 
+            'path' => $path, 
+        ]);
+        
+
+        foreach ($request->selected_repair_types as $key => $repair_type) {
+          $detail = RepairType::find($repair_type);
+           $repair_detail = RepairDetail::create([
+                'repair_type_id' => $detail['id'], 
+                'name' => $detail['name'], 
+                'estimated_cost' => 500
+           ]);
+        }
+
+        return redirect('/home-page')->with('success', 'Appontment Successfully Created');
+    }
+
+    public function getAppointment(Request $request)
+    {
+        // $customers = Customer::get
+        $vehicles = Vehicle::get();
+        $repair_types = RepairType::get();
+        return view('pages.appointment', compact('vehicles', 'repair_types'));
     }
 }

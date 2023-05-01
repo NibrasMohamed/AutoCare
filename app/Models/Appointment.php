@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent as Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 /**
  * Class Appointment
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|\Carbon\Carbon $appointment_date
  * @property string $status
  */
-class Appointment extends Model
+class Appointment extends EloquentModel
 {
 
     use HasFactory;

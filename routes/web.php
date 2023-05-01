@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\CustomerRegisterController;
 use App\Http\Controllers\SparePartController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,25 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/home-page', function () {
+    return view('pages.home-page', ['projects' => [], 'staffs' => []]);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/customer-login', [CustomerRegisterController::class, 'login']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-
+Route::get('/register-customer', [CustomerRegisterController::class, 'index']);
+Route::post('/register-customer', [CustomerRegisterController::class, 'store']);
 
 Route::resource('employees', App\Http\Controllers\EmployeeController::class);
 
@@ -69,3 +65,6 @@ Route::resource('vehicles', App\Http\Controllers\VehicleController::class);
 
 
 Route::resource('spareParts', App\Http\Controllers\SparePartController::class);
+
+Route::post('make-appointment', [AppointmentController::class, 'makeAppointment']);
+Route::get('make-appointment', [AppointmentController::class, 'getAppointment']);
