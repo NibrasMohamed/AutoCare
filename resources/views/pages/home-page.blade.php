@@ -1,12 +1,7 @@
 @extends('layouts.web_layout')
 
 @section('content')
-<link href="{{ asset('custom/css/style.css') }}" rel="stylesheet">
-<link href="{{ asset('custom/vendor/icofont/icofont.min.css') }}" rel="stylesheet">
-<link href="{{ asset('custom/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-<link href="{{ asset('custom/vendor/venobox/venobox.css') }}" rel="stylesheet">
-<link href="{{ asset('custom/vendor/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-<link href="{{ asset('custom/vendor/aos/aos.css') }}" rel="stylesheet">
+
 <style> 
 body{
     background-color: rgb(37, 37, 37);
@@ -595,19 +590,7 @@ background-color: rgb(77, 75, 75);
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
-  <script src="{{ asset('custom/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('custom/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('custom/vendor/jquery.easing/jquery.easing.min.js') }}"></script>
-  <script src="{{ asset('custom/vendor/php-email-form/validate.js') }}"></script>
-  <script src="{{ asset('custom/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-  <script src="{{ asset('custom/vendor/venobox/venobox.min.js') }}"></script>
-  <script src="{{ asset('custom/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
-  <script src="{{ asset('custom/vendor/aos/aos.js') }}"></script>
 
-  <!-- Template Main JS File -->
-  <script src="{{ asset('custom/js/main.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
   <script>
     $(document).on('click', '.contact_us', function(e) {

@@ -22,10 +22,10 @@ class VehicleFactory extends Factory
     public function definition()
     {
         return [
-            'model' => $this->faker->word,
+        'model' => $this->faker->word,
         'type' => $this->faker->word,
-        'manufacturer_id' => $this->faker->word,
-        'year' => $this->faker->word,
+        'manufacturer_id' => $this->faker->numberBetween(1,100),
+        'year' => $this->faker->numberBetween(1990, 2023),
         'created_at' => $this->faker->date('Y-m-d H:i:s'),
         'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];

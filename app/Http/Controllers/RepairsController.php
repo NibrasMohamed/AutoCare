@@ -6,6 +6,7 @@ use App\Http\Requests\CreateRepairsRequest;
 use App\Http\Requests\UpdateRepairsRequest;
 use App\Repositories\RepairsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Repairs;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -29,7 +30,12 @@ class RepairsController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $repairs = $this->repairsRepository->all();
+        $repairs = Repairs::join('repair_images', 'repair_images.repair_id', 'repairs.id')
+                            ->select(
+                                'repairs.*',
+                                'repair_images.path as image'
+                            )
+                            ->get();
 
         return view('repairs.index')
             ->with('repairs', $repairs);

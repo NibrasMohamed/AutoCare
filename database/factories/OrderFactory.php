@@ -22,10 +22,10 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'customer_id' => $this->faker->word,
-        'spare_part_id' => $this->faker->word,
+        'customer_id' => $this->faker->numberBetween(1, 20),
+        'spare_part_id' => $this->faker->numberBetween(5, 100),
         'quantity' => $this->faker->randomDigitNotNull,
-        'status' => $this->faker->word,
+        'status' => $this->faker->words('status'),
         'created_at' => $this->faker->date('Y-m-d H:i:s'),
         'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];

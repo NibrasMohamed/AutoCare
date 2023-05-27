@@ -22,10 +22,10 @@ class RepairsFactory extends Factory
     public function definition()
     {
         return [
-            'appointment_id' => $this->faker->word,
+        'appointment_id' => $this->faker->randomNumber(),
         'name' => $this->faker->word,
         'description' => $this->faker->word,
-        'cost' => $this->faker->randomDigitNotNull,
+        'cost' => $this->faker->randomFloat(2, 10, 1000), 
         'created_at' => $this->faker->date('Y-m-d H:i:s'),
         'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];

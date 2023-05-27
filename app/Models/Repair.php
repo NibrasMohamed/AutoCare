@@ -24,4 +24,9 @@ class Repair extends Model
     {
         return $this->belongsTo(RepairDetail::class);
     }
+
+    public function repairImage()
+    {
+        return $this->belongsTo(RepairImage::class, 'repair_id', 'id');
+    }
 }

@@ -55,5 +55,8 @@ class RepairType extends Model
         'updated_at' => 'nullable'
     ];
 
-    
+    public function repairs()
+    {
+        return $this->hasMany(Repairs::class);
+    }
 }

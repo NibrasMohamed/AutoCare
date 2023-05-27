@@ -18,7 +18,7 @@ class Manufacturer extends Model
 
     use HasFactory;
 
-    public $table = 'manufacturer';
+    public $table = 'manufacturers';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';

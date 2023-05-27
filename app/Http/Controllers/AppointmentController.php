@@ -6,6 +6,7 @@ use App\Http\Requests\CreateAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Repositories\AppointmentRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\MakeAppointmentRequest;
 use App\Models\Appointment;
 use App\Models\Customer;
 use App\Models\Repair;
@@ -16,6 +17,7 @@ use App\Models\RepairType;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Storage;
 use Response;
 
 class AppointmentController extends AppBaseController
@@ -162,7 +164,7 @@ class AppointmentController extends AppBaseController
         return redirect(route('appointments.index'));
     }
 
-    public function makeAppointment(Request $request)
+    public function makeAppointment(MakeAppointmentRequest $request)
     {
 
         // dd($request->toArray());
@@ -183,14 +185,15 @@ class AppointmentController extends AppBaseController
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('images/repair_images', $filename);
+            $path = $image->store('public/images/repair_images');
+            $imageUrl = Storage::url($path);
         } else {
-            $url = null;
+            $imageUrl = null;
         }
         
         $repair_image = RepairImage::create([
             'repair_id' => $repair->id, 
-            'path' => $path, 
+            'path' => $imageUrl, 
         ]);
         
 

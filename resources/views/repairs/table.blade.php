@@ -12,13 +12,14 @@
             </tr>
         </thead>
         <tbody>
+            {{-- @dd($repairs) --}}
             @foreach ($repairs as $repair)
                 <tr>
                     <td>#{{ $repair->appointment_id }}</td>
                     <td>{{ $repair->created_at }}</td>
                     <td>{{ $repair->name }}</td>
                     <td>{{ $repair->description }}</td>
-                    <td>{{ $repair-> }}</td>
+                    <td><img src="{{ url($repair->image) }}" alt="" srcset="" height="200px" width="auto"></td>
                     <td>{{ $repair->cost }}</td>
                     <td class=" text-center">
                         {!! Form::open(['route' => ['repairs.destroy', $repair->id], 'method' => 'delete']) !!}

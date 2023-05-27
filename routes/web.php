@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home-page', function () {
+Route::get('/', function () {
     return view('pages.home-page', ['projects' => [], 'staffs' => []]);
 });
 
