@@ -3,7 +3,10 @@
 Create Appointment
 @endsection
 @section('content')
+
 <link rel="stylesheet" href="/css/app-project.css">
+
+<link rel="stylesheet" href="/css/admin-lte/adminlte.css">
 
 <style>
     .card-title-right-success {
@@ -171,13 +174,11 @@ Create Appointment
                                                 </div>
 
                                                 <div class="row">
-                                                    @foreach ($project_activity_inner->files as $image)
                                                     <div class="col-md-3">
                                                         <div class="col-md-3">
-                                                            <img style="width: 350px; margin-top: 15px; border: solid 1px #ced4da;" src="/appointment/details/get-image/{{$image->id}}" alt="...">
+                                                            <img style="width: 350px; margin-top: 15px; border: solid 1px #ced4da;" src="/appointment/details/get-image/{{$project_activity_inner->id}}" alt="...">
                                                         </div>
                                                     </div>
-                                                    @endforeach
                                                 </div>
 
                                             </div>

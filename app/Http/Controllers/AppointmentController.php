@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Flash;
+use Response;
+use DB;
+use App\Models\Repair;
+use App\Models\Repairs;
+use App\Models\Vehicle;
+use App\Models\Customer;
+use App\Models\RepairType;
+use App\Models\Appointment;
+use App\Models\RepairImage;
+use App\Models\RepairDetail;
+use Illuminate\Http\Request;
+use App\Models\AppointmentActivity;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\AppBaseController;
+use App\Repositories\AppointmentRepository;
+use App\Http\Requests\MakeAppointmentRequest;
 use App\Http\Requests\CreateAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
-use App\Repositories\AppointmentRepository;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\MakeAppointmentRequest;
-use App\Models\Appointment;
-use App\Models\Customer;
-use App\Models\Repair;
-use App\Models\RepairDetail;
-use App\Models\RepairImage;
-use App\Models\Repairs;
-use App\Models\RepairType;
-use App\Models\Vehicle;
-use Illuminate\Http\Request;
-use Flash;
-use Illuminate\Support\Facades\Storage;
-use Response;
 
 class AppointmentController extends AppBaseController
 {
@@ -228,7 +230,17 @@ class AppointmentController extends AppBaseController
                                     ->where('appointments.id', '=', $request->id)
                                     ->first();
 
-        return view('appointments.detail', ['project' =>$project, 'project_activities' => []]);
+        $project_activities = AppointmentActivity::join('users', 'users.id', '=' , 'appointment_activity.user_id')
+                                            ->where('appointment_activity.project_id', '=', $project->id)
+                                            ->select('appointment_activity.*', 'users.name as user_name', DB::raw("DATE_FORMAT(appointment_activity.created_at, '%d %b %Y') as formatted_created_at"))
+                                            ->orderBy('appointment_activity.created_at', 'DESC')
+                                            ->get();
+
+        $project_activities = $project_activities->mapToGroups(function ($item, $key) {
+            return [$item['formatted_created_at'] => $item];
+        });
+
+        return view('appointments.detail', ['project' =>$project, 'project_activities' => $project_activities]);
     }
 
     public function updateStatus(Request $request)
@@ -252,7 +264,7 @@ class AppointmentController extends AppBaseController
     public function getAppointmentActivities(Request $request, $project_id){
         $project = Appointment::find($project_id);
 
-        $project_activities = ProjectActivity::join('users', 'users.id', '=' , 'project_activity.user_id')
+        $project_activities = AppointmentActivity::join('users', 'users.id', '=' , 'project_activity.user_id')
                                             ->where('project_activity.project_id', '=', $project->id)
                                             ->select('project_activity.*', 'users.name as user_name', DB::raw("DATE_FORMAT(project_activity.created_at, '%d %b %Y') as formatted_created_at"))
                                             ->orderBy('project_activity.created_at', 'DESC')
@@ -280,7 +292,8 @@ class AppointmentController extends AppBaseController
 
     public function storeAppointmentDetails(Request $request){
 
-        $project_activity = ProjectActivity::create([
+
+        $project_activity = AppointmentActivity::create([
             'project_id' => $request->project_id,
             'description' => $request->description,
             'user_id' => auth()->user()->id,
@@ -293,14 +306,31 @@ class AppointmentController extends AppBaseController
             $image->storeAs('/public/project_acticivity_images/'.$project_activity->id.'/', $filename . "." . $extension);
             $path = '/public/project_acticivity_images/'.$project_activity->id.'/'.$filename . "." . $extension;
 
-            FileMaster::create([
-                'folder_id' => $project_activity->id,
-                'category' => 'project-activuty',
-                'file_path' => $path
-            ]);
+            $project_activity->image_url = $path;
+            $project_activity->save();
         }
 
         return redirect('/appointment/details/get/'.$request->project_id.'?_t=1');
 
+    }
+
+    public function getImageByFileMaster(Request $request)
+    {
+        $activity = AppointmentActivity::find($request->id);
+
+        $file_path = $activity->image_url;
+
+        if (! Storage::exists($file_path)) {
+            abort(404);
+        }
+
+    
+        $file = Storage::get($file_path);
+        $type = Storage::mimeType($file_path);
+
+        $response = Response::make($file, 200);
+        $response->header('Content-Type', $type);
+
+        return $response;
     }
 }

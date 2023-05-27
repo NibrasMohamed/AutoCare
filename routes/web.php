@@ -79,3 +79,5 @@ Route::get('/appointment/activites/get/{project_id}', [AppointmentController::cl
 Route::get('/appointment/details/create', [AppointmentController::class, 'createAppointmentDetails']);
 Route::post('/appointment/details/store', [AppointmentController::class, 'storeAppointmentDetails']);
 Route::get('/appointment/details/get-image/{id}', [AppointmentController::class, 'getImageByFileMaster']);
+
+
