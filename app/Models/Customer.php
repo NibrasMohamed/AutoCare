@@ -12,7 +12,7 @@ class Customer extends Model
     protected $table = 'customers';
 
     protected $fillable = [
-        'name', 'email', 'phone', 'address'
+        'name', 'email', 'phone', 'address', 'user_id'
     ];
 
     public function vehicles()
@@ -23,5 +23,10 @@ class Customer extends Model
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -38,10 +38,10 @@
 
     <div class="card">
         <div class="card-body register-card-body">
-            <div class="register-logo">
+            <div class="register-logo" style="background-color: rgba(255, 255, 255, 0.25)">
                 <a href="{{ url('/home') }}" style="color: rgb(189, 21, 21)"><p1> <b>AUTO</b> </p1> <p2>MAX</p2></a>
             </div>
-            <p class="login-box-msg">Register a new membership</p>
+            <p class="login-box-msg">Register as a new membership</p>
 
             <form method="post" action="{{ url('register-customer') }}" enctype="multipart/form-data">
                 @csrf
@@ -108,12 +108,14 @@
                         <div class="input-group-text"><span class="fas fa-phone"></span></div>
                     </div>
                 </div>
+               
                 <div class="input-group mb-3">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="InputFile" name="profile_pic">
-                        <label class="custom-file-label" for="InputFile">Profile Picture</label>
-                      </div>
+                    <input type="text" name="address" class="form-control" placeholder="Address">
+                    <div class="input-group-append">
+                        <div class="input-group-text"><span class="fas fa-home"></span></div>
+                    </div>
                 </div>
+
                 <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">

@@ -10,10 +10,12 @@
         <form method="POST" action="/make-appointment" enctype="multipart/form-data">
             @csrf
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="customer_id">Customer ID:</label>
                 <input type="text" name="customer_id" id="customer_id" class="form-control" required>
             </div>
+             --}}
+            <input type="text" name="customer_id" id="customer_id" value="{{ $user->customer->id }}" class="form-control" required>
 
             <div class="form-group">
                 <label for="vehicle_id">Vehicle ID:</label>

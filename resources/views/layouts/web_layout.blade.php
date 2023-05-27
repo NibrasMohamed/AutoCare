@@ -35,6 +35,9 @@
     }
 </style>
 <body>
+    <?php
+        $user = auth()->user()?auth()->user():null;
+    ?>
     <nav class="navbar navbar-light bg-dark justify-content-between" style="color: white">
         <div>
             <a class="active" href="/home">Home</a> |
@@ -47,6 +50,7 @@
                     src="{{ asset('custom/automax.png') }}" width="150" alt=""></a>
         </div>
         <div>
+            {{-- @dd(auth()->user()) --}}
             @guest
                 <a href="{{ route('login') }}">{{ __('Login') }}</a> |
                 @if (Route::has('register'))

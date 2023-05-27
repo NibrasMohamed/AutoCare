@@ -50,8 +50,8 @@ background-color: rgb(77, 75, 75);
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
       <h1>Welcome to <span style="background-color: rgba(243, 241, 241, 0.5);" >&nbsp; <p1>AUTO</p1><p2>MAX</p2>&nbsp; </span></h1>
       <h2>We fix anything with Tyres, Motor and Metal</h2>
-      <a href="/login" class="btn-get-started scrollto">Sign in</a>
-      <a href="/register" class="btn-get-started scrollto">Join us</a>
+      <a href="/customer-login" class="btn-get-started scrollto">Sign in</a>
+      <a href="/register-customer" class="btn-get-started scrollto">Join us</a>
     </div>
   </section><!-- End Hero -->
 
