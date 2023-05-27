@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CustomerRegisterController;
+use App\Http\Controllers\RepairsController;
 use App\Http\Controllers\SparePartController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,7 @@ Route::resource('employees', App\Http\Controllers\EmployeeController::class);
 
 
 Route::resource('repairs', App\Http\Controllers\RepairsController::class);
+Route::get('/repair/generate-pdf', [RepairsController::class, 'generatePdf']);
 
 
 Route::resource('inventories', App\Http\Controllers\InventoryController::class);

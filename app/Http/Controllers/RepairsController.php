@@ -6,10 +6,12 @@ use App\Http\Requests\CreateRepairsRequest;
 use App\Http\Requests\UpdateRepairsRequest;
 use App\Repositories\RepairsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Repair;
 use App\Models\Repairs;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RepairsController extends AppBaseController
 {
@@ -158,5 +160,12 @@ class RepairsController extends AppBaseController
         Flash::success('Repairs deleted successfully.');
 
         return redirect(route('repairs.index'));
+    }
+
+    public function generatePdf(Request $request){
+        $repairs = Repair::get();
+
+        $pdf = Pdf::loadView('repairs.generate-pdf', ['repairs' => $repairs]);
+        return $pdf->download('repairs.pdf');
     }
 }
