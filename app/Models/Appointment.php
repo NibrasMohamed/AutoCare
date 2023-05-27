@@ -34,8 +34,14 @@ class Appointment extends EloquentModel
         'customer_id',
         'vehicle_id',
         'appointment_date',
-        'status'
+        'status',
+        'percentage'
     ];
+
+    public function repair()
+    {
+        return $this->hasOne(Repair::class);
+    }
 
     /**
      * The attributes that should be casted to native types.

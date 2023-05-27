@@ -68,3 +68,14 @@ Route::resource('spareParts', App\Http\Controllers\SparePartController::class);
 
 Route::post('post-appointment', [AppointmentController::class, 'makeAppointment']);
 Route::get('make-appointment', [AppointmentController::class, 'getAppointment']);
+
+
+// new routes
+Route::get('/appointment/details/get/{id}', [AppointmentController::class, 'getAppointmentDetails']);
+Route::post('/appointment/update-stats', [AppointmentController::class, 'updateStatus']);
+
+
+Route::get('/appointment/activites/get/{project_id}', [AppointmentController::class, 'getAppointmentActivities']);
+Route::get('/appointment/details/create', [AppointmentController::class, 'createAppointmentDetails']);
+Route::post('/appointment/details/store', [AppointmentController::class, 'storeAppointmentDetails']);
+Route::get('/appointment/details/get-image/{id}', [AppointmentController::class, 'getImageByFileMaster']);

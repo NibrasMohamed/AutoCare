@@ -200,6 +200,7 @@ class AppointmentController extends AppBaseController
         foreach ($request->selected_repair_types as $key => $repair_type) {
           $detail = RepairType::find($repair_type);
            $repair_detail = RepairDetail::create([
+                'repair_id' => $repair->id, 
                 'repair_type_id' => $detail['id'], 
                 'name' => $detail['name'], 
                 'estimated_cost' => 500
@@ -215,5 +216,91 @@ class AppointmentController extends AppBaseController
         $vehicles = Vehicle::get();
         $repair_types = RepairType::get();
         return view('pages.appointment', compact('vehicles', 'repair_types'));
+    }
+
+    public function getAppointmentDetails(Request $request){
+
+
+        $project = Appointment::join('customers', 'customers.id', '=', 'customer_id')
+                                    ->join('vehicles', 'vehicles.id', '=', 'vehicle_id')
+                                    ->join('manufacturers', 'manufacturers.id', '=', 'manufacturer_id')
+                                    ->select('appointments.*', 'manufacturers.name as make', 'vehicles.model', 'vehicles.type', 'vehicles.year', 'customers.name as customer_name')
+                                    ->where('appointments.id', '=', $request->id)
+                                    ->first();
+
+        return view('appointments.detail', ['project' =>$project, 'project_activities' => []]);
+    }
+
+    public function updateStatus(Request $request)
+    {
+       
+        $project = Appointment::find($request->id);
+
+        if($request->type == 'percentage'){
+            $project->percentage = $request->input('value');
+        }
+        else{
+            $project->status = $request->input('value');
+        }
+           
+        $project->save();
+
+        return response()->json(true);
+        
+    }
+
+    public function getAppointmentActivities(Request $request, $project_id){
+        $project = Appointment::find($project_id);
+
+        $project_activities = ProjectActivity::join('users', 'users.id', '=' , 'project_activity.user_id')
+                                            ->where('project_activity.project_id', '=', $project->id)
+                                            ->select('project_activity.*', 'users.name as user_name', DB::raw("DATE_FORMAT(project_activity.created_at, '%d %b %Y') as formatted_created_at"))
+                                            ->orderBy('project_activity.created_at', 'DESC')
+                                            ->get();
+
+        $project_activities = $project_activities->mapToGroups(function ($item, $key) {
+            return [$item['formatted_created_at'] => $item];
+        });
+
+        if(isset($request->_t) && $request->_t == 1){
+            $read_only = false;
+        }
+        else{
+            $read_only = true;
+        }
+
+                                                
+        return view('appointments.status', compact('project', 'project_activities', 'read_only'));
+    }
+
+    public function createAppointmentDetails(Request $request){
+        $project_id = $request->project_id;
+        return view('appointments.status-create', compact('project_id'));
+    }
+
+    public function storeAppointmentDetails(Request $request){
+
+        $project_activity = ProjectActivity::create([
+            'project_id' => $request->project_id,
+            'description' => $request->description,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        foreach($request->image_file as $image){
+
+            $filename = auth()->user()->name . uniqid();
+            $extension = $image->extension();
+            $image->storeAs('/public/project_acticivity_images/'.$project_activity->id.'/', $filename . "." . $extension);
+            $path = '/public/project_acticivity_images/'.$project_activity->id.'/'.$filename . "." . $extension;
+
+            FileMaster::create([
+                'folder_id' => $project_activity->id,
+                'category' => 'project-activuty',
+                'file_path' => $path
+            ]);
+        }
+
+        return redirect('/appointment/details/get/'.$request->project_id.'?_t=1');
+
     }
 }

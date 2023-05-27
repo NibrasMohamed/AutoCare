@@ -22,7 +22,7 @@ class Repair extends Model
 
     public function repairDetail()
     {
-        return $this->belongsTo(RepairDetail::class);
+        return $this->hasMany(RepairDetail::class);
     }
 
     public function repairImage()

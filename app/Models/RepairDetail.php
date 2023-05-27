@@ -12,11 +12,16 @@ class RepairDetail extends Model
     protected $table = 'repair_details';
 
     protected $fillable = [
-        'repair_type_id', 'name', 'estimated_cost'
+        'repair_id','repair_type_id', 'name', 'estimated_cost'
     ];
 
     public function repairType()
     {
         return $this->belongsTo(RepairType::class);
+    }
+
+    public function repair()
+    {
+        return $this->belongsTo(Repair::class);
     }
 }
