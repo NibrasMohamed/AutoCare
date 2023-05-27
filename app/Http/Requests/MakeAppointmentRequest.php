@@ -14,7 +14,8 @@ class MakeAppointmentRequest extends FormRequest
      */
     public function authorize()
     {
-        Auth::check();
+        // Auth::check();
+        return true;
     }
 
     /**

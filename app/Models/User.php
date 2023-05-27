@@ -47,4 +47,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Customer::class);
     }
+
+    public function hasRole($roleName){
+        if($this->role === $roleName){
+            return true;
+        }
+
+        return false;
+    }
 }

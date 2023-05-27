@@ -7,7 +7,7 @@
         }
     </style>
     <div class="container">
-        <form method="POST" action="/make-appointment" enctype="multipart/form-data">
+        <form method="POST" action="/post-appointment" enctype="multipart/form-data">
             @csrf
 
             {{-- <div class="form-group">
@@ -15,7 +15,7 @@
                 <input type="text" name="customer_id" id="customer_id" class="form-control" required>
             </div>
              --}}
-            <input type="text" name="customer_id" id="customer_id" value="{{ $user->customer->id }}" class="form-control" required>
+            <input type="text" name="customer_id" id="customer_id" value="{{ auth()->user()->customer->id }}" class="form-control" required>
 
             <div class="form-group">
                 <label for="vehicle_id">Vehicle ID:</label>

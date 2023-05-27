@@ -66,5 +66,5 @@ Route::resource('vehicles', App\Http\Controllers\VehicleController::class);
 
 Route::resource('spareParts', App\Http\Controllers\SparePartController::class);
 
-Route::post('make-appointment', [AppointmentController::class, 'makeAppointment']);
+Route::post('post-appointment', [AppointmentController::class, 'makeAppointment']);
 Route::get('make-appointment', [AppointmentController::class, 'getAppointment']);
