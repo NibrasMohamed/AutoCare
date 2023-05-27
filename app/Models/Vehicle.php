@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
+
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -63,5 +64,8 @@ class Vehicle extends Model
         'updated_at' => 'nullable'
     ];
 
-    
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class);
+    }
 }
