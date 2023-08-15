@@ -63,6 +63,8 @@ class CustomerRegisterController extends Controller
             'address' => $request->address,
             'user_id' => $user->id
         ]);
+
+        return redirect('/customer-login');
     }
 
     /**

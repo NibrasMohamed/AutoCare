@@ -234,6 +234,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Flash'     => Laracasts\Flash\Flash::class,
         'Datatables' => Yajra\DataTables\Facades\DataTables::class,
+        'PDF' => \Barryvdh\DomPDF::class
 
     ],
 

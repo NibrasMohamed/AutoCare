@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/iziToast.min.css') }}">
     <link href="{{ asset('assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/modules/summernote/summernote-bs4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css') }}"> --}}
 
     <!-- the fileinput plugin styling CSS file -->
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />

@@ -209,7 +209,7 @@ class AppointmentController extends AppBaseController
            ]);
         }
 
-        return redirect('/home-page')->with('success', 'Appontment Successfully Created');
+        return redirect('/')->with('success', 'Appontment Successfully Created');
     }
 
     public function getAppointment(Request $request)

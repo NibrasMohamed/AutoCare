@@ -15,7 +15,7 @@
                 <input type="text" name="customer_id" id="customer_id" class="form-control" required>
             </div>
              --}}
-            <input type="text" name="customer_id" id="customer_id" value="{{ auth()->user()->customer->id }}" class="form-control" required>
+            <input type="text" name="customer_id" id="customer_id" value="{{ auth()->user()->customer->id }}" hidden class="form-control" required>
 
             <div class="form-group">
                 <label for="vehicle_id">Vehicle ID:</label>
@@ -34,10 +34,10 @@
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select name="status" id="status" class="form-control" required>
-                    <option value="pending">Pending</option>
-                    <option value="confirmed">Confirmed</option>
+                    <option value="pending" selected>Pending</option>
+                    {{-- <option value="confirmed">Confirmed</option>
                     <option value="completed">Completed</option>
-                    <option value="cancelled">Cancelled</option>
+                    <option value="cancelled">Cancelled</option> --}}
                 </select>
             </div>
 

@@ -164,7 +164,7 @@ class RepairsController extends AppBaseController
 
     public function generatePdf(Request $request){
         $repairs = Repair::get();
-
+        // dd($repairs);
         $pdf = Pdf::loadView('repairs.generate-pdf', ['repairs' => $repairs]);
         return $pdf->download('repairs.pdf');
     }

@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('pages.home-page', ['projects' => [], 'staffs' => []]);
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('role_check')->name('home');
 
 
 Auth::routes();

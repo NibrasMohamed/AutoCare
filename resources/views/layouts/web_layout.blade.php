@@ -58,7 +58,7 @@
                     <a href="#contact">Contact</a>
                 @endif
             @else
-                <a href="/dashboard">Dashboard</a> |
+                <a href="/home">Dashboard</a> |
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a> |
                 <form id="logout-form" action="{{ url('/logout')  }}" method="POST" class="d-none">
                     @csrf

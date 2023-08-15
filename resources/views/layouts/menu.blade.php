@@ -2,23 +2,23 @@
 $user = auth()->user();
 ?>
 
-<li class="side-menus {{ Request::is('dashboard') ? 'active' : '' }}">
-    <a class="nav-link" href="/">
-        <i class=" fas fa-building"></i><span>Dashboard</span>
-    </a>
-</li>
-
+@if ($user->hasRole('employee') || $user->hasRole('manager') || $user->hasRole('admin'))
+    <li class="side-menus {{ Request::is('repairs.index') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('repairs.index') }}">
+            <i class=" fas fa-building"></i><span>Appointments</span>
+        </a>
+    </li>
+@endif
 
 @if ($user->hasRole('admin') || $user->hasRole('manager'))
-    <li class="side-menus {{ Request::is('dashboard') ? 'active' : '' }}">
+    {{-- <li class="side-menus {{ Request::is('dashboard') ? 'active' : '' }}">
         <a class="nav-link" href="/dashboard">
             <i class=" fas fa-building"></i><span>Dashboard</span>
         </a>
-    </li>
+    </li> --}}
 
     <li class="side-menus {{ Request::is('employees*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('employees.index') }}"><i
-                class="fas fa-building"></i><span>Employees</span></a>
+        <a class="nav-link" href="{{ route('employees.index') }}"><i class="fas fa-building"></i><span>Employees</span></a>
     </li>
 
     <li class="side-menus {{ Request::is('repairs*') ? 'active' : '' }}">
@@ -66,6 +66,13 @@ $user = auth()->user();
 
     <li class="side-menus {{ Request::is('vehicles*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('vehicles.index') }}"><i
+                class="fas fa-building"></i><span>Vehicles</span></a>
+    </li>
+@endif
+
+@if ($user->hasRole('customer'))
+    <li class="side-menus {{ Request::is('vehicles*') ? 'active' : '' }}">
+        <a class="nav-link" href="/make-appointment"><i
                 class="fas fa-building"></i><span>Vehicles</span></a>
     </li>
 @endif
